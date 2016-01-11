@@ -8,6 +8,10 @@ class BaseClass(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
+    def check_directory(self):
+        pass
+
+    @abstractmethod
     def create_directory(self):
         pass
 
