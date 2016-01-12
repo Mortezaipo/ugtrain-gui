@@ -8,6 +8,10 @@ class BaseClass(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
+    def check_file(self):
+        pass
+
+    @abstractmethod
     def open_file(self):
         pass
 
