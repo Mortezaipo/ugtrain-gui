@@ -33,3 +33,7 @@ class BaseClass(object):
     @abstractmethod
     def get_value(self):
         pass
+    
+    @abstractmethod
+    def show_window(self):
+        pass
