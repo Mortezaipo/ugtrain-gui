@@ -74,7 +74,7 @@ class UG(gtk.Window):
         list = ['Process name', 'Process call', 'Absolute path', 'Params']
         for i in list:
             l = gtk.Label(i)
-            l.set_justify(gtk.JUSTIFY_LEFT)
+            l.set_alignment(xalign=0, yalign=0)
             self._lbls.update({i:l})
         
         
