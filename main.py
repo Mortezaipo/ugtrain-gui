@@ -2,6 +2,7 @@
 
 import gtk
 import sys
+from signals import Signals
 
 
 class UG(gtk.Window):
@@ -29,14 +30,9 @@ class UG(gtk.Window):
         settings_table = gtk.Table(3, 2, True)
         
         # Define Elements
-        self._entr.update({'game_process_name': gtk.Entry()})
-        self._entr.update({'game_process_call': gtk.Entry()})
-        self._entr.update({'game_absolute_path': gtk.Entry()})
-        self._entr.update({'game_params': gtk.Entry()})
-        self._entr.update({'dynamic_memory_file': gtk.Entry()})
-        self._entr.update({'use_gbt': gtk.CheckButton()})
-        self._entr.update({'macro_name': gtk.Entry()})
-        self._btns.update({'advanced': gtk.Button('Advanced Settings')})
+        self.create_entries()
+        self.create_buttons()
+        self.create_checkboxes()
         self.create_labels()
         
         # Start The Game
@@ -77,5 +73,30 @@ class UG(gtk.Window):
             l.set_alignment(xalign=0, yalign=0)
             self._lbls.update({i:l})
         
+    def create_buttons(self):
+        list = [('advanced', 'Advanced Settings', self.show_mode_prompt),]
+        for i,j,k in list:
+            b = gtk.Button(j)
+            b.connect("clicked", k)
+            self._btns.update({i: b})
+    
+    def create_checkboxes(self):
+        list = ['use_gbt',]
+        for i in list:
+            self._entr.update({i: gtk.CheckButton()})
+        
+    def create_entries(self):
+        list = ['game_process_name', 'game_process_call', 'game_absolute_path', 'game_params', 'dynamic_memory_file', 'macro_name']
+        for i in list:
+            self._entr.update({i: gtk.Entry()})
+        
+    
+    def show_mode_prompt(self, widget):
+        win = gtk.Window()
+        win.set_title("Select Type")
+        win.set_size_request(300,100)
+        win.show_all()
+        win.connect("desctroy", gtk.main_quit)
+        gtk.main()
         
 UG()
