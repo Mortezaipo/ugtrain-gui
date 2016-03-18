@@ -1,7 +1,14 @@
 import gtk
+from dynamic import Dynamic
+from pointer import Pointer
+from static import Static
 
 
 class General(gtk.Window):
+    
+    pointer = None
+    dynamic = None
+    static = None
     
     sg_elements = {'Process name': gtk.Entry(),
                    'Process call': gtk.Entry(),
@@ -24,18 +31,30 @@ class General(gtk.Window):
         self.set_border_width(10)
 
         # Manu for main window
-        menu = gtk.MenuBar()
-        filemenu = gtk.Menu()
-        filem = gtk.MenuItem("File")
-        filem.set_submenu(filemenu)
-        close = gtk.MenuItem("Exit")
-        close.connect("activate", gtk.main_quit)
-        new = gtk.MenuItem("New")
-        open = gtk.MenuItem("Open")
-        filemenu.append(new)
-        filemenu.append(open)
-        filemenu.append(close)
-        menu.append(filem)
+        main_menu = gtk.MenuBar()
+        file_menu = gtk.Menu()
+        file_new_menu = gtk.Menu()
+        
+        m_file = gtk.MenuItem("File")
+        m_new = gtk.MenuItem("New")
+        m_open = gtk.MenuItem("Open")
+        m_exit = gtk.MenuItem("Exit")
+        m_static = gtk.MenuItem("Static")
+        m_dynamic = gtk.MenuItem("Dynamic")
+        m_pointer = gtk.MenuItem("Pointer")
+        
+        m_file.set_submenu(file_menu)
+        m_new.set_submenu(file_new_menu)
+        
+        file_menu.append(m_new)
+        file_menu.append(m_open)
+        file_menu.append(m_exit)
+        
+        file_new_menu.append(m_static)
+        file_new_menu.append(m_dynamic)
+        file_new_menu.append(m_pointer)
+        
+        main_menu.append(m_file)
 
         # Table for main window
         main_table = gtk.Table(2, 1, False)
@@ -60,11 +79,15 @@ class General(gtk.Window):
         self.draw_start_game()
         self.draw_general_settings()
         
-        body_box.pack_start(menu, False, False, 0)
+        body_box.pack_start(main_menu, False, False, 0)
         body_box.pack_end(main_table)
         self.add(body_box)
 
         self.connect("destroy", gtk.main_quit)
+        m_exit.connect("activate", gtk.main_quit)
+        m_static.connect("activate", self.draw_static_form)
+        m_dynamic.connect("activate", self.draw_dynamic_form)
+        m_pointer.connect("activate", self.draw_pointer_form)
         self.show_all()
         
     def draw_start_game(self):
@@ -80,3 +103,15 @@ class General(gtk.Window):
             self.gs_table.attach(gtk.Label(label), 0, 1, i, i+1)
             self.gs_table.attach(element, 1, 2, i, i+1)
             i+=1
+            
+    def draw_static_form(self, widget):
+        if not self.static:
+            self.static = Static()
+    
+    def draw_dynamic_form(self, widget):
+        if not self.dynamic:
+            self.dynamic = Dynamic()
+        
+    def draw_pointer_form(self, widget):
+        if not self.pointer:
+            self.pointer = Pointer()
