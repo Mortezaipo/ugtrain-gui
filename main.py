@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import gtk
 from general import General
 
