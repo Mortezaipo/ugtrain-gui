@@ -33,28 +33,30 @@ class General(gtk.Window):
         # Manu for main window
         main_menu = gtk.MenuBar()
         file_menu = gtk.Menu()
-        file_new_menu = gtk.Menu()
+        setting_menu = gtk.Menu()
         
         m_file = gtk.MenuItem("File")
         m_new = gtk.MenuItem("New")
         m_open = gtk.MenuItem("Open")
         m_exit = gtk.MenuItem("Exit")
+        m_setting = gtk.MenuItem("Settings")
         m_static = gtk.MenuItem("Static")
         m_dynamic = gtk.MenuItem("Dynamic")
         m_pointer = gtk.MenuItem("Pointer")
         
         m_file.set_submenu(file_menu)
-        m_new.set_submenu(file_new_menu)
+        m_setting.set_submenu(setting_menu)
         
         file_menu.append(m_new)
         file_menu.append(m_open)
         file_menu.append(m_exit)
         
-        file_new_menu.append(m_static)
-        file_new_menu.append(m_dynamic)
-        file_new_menu.append(m_pointer)
+        setting_menu.append(m_static)
+        setting_menu.append(m_dynamic)
+        setting_menu.append(m_pointer)
         
         main_menu.append(m_file)
+        main_menu.append(m_setting)
 
         # Table for main window
         main_table = gtk.Table(2, 1, False)
