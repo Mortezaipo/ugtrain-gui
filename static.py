@@ -28,14 +28,15 @@ class Static(gtk.Window):
         swin = gtk.ScrolledWindow()
         swin.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         self.lstore = gtk.ListStore(str, str, str, str, str, str)
-        tree = gtk.TreeView(self.lstore)
+        self.tree = gtk.TreeView(self.lstore)
+        self.tree.connect("row-activated", self.edit_list_item)
         for i in range(6):
             row = gtk.CellRendererText()
-            cell = gtk.TreeViewColumn("Arg %d" % i, row, text=0)
-            tree.append_column(cell)
+            cell = gtk.TreeViewColumn("Arg %d" % i, row, text=i)
+            self.tree.append_column(cell)
         
         # Connect elements to layouts
-        swin.add(tree)
+        swin.add(self.tree)
         fbox.put(savebtn, 0, 0)
         fbox.put(addarg, 120, 0)
         box.pack_start(self.setting, False, False, 0)
@@ -81,6 +82,7 @@ class Static(gtk.Window):
         
         # Create elements
         save_btn = gtk.Button('Add')
+        save_btn.connect("clicked", self.add_list_item)
         self.draw_new_data_elements()
         
         # Attach elements to layouts
@@ -135,3 +137,24 @@ class Static(gtk.Window):
             self.check_table.attach(gtk.Label(label), 0, 1, i, i+1)
             self.check_table.attach(element, 1, 2, i, i+1)
             i += 1
+
+    def add_list_item(self, widget):
+        self.lstore.append((self.arg_elements[0][1].get_text(),
+                            self.arg_elements[1][1].get_text(),
+                            self.arg_elements[2][1].get_text(),
+                            str(self.arg_elements[3][1].get_active()),
+                            str(self.arg_elements[4][1].get_active()),
+                            '',
+                            ))
+        
+        self.lstore.append((str(self.check_elements[0][1].get_active()),
+                            self.check_elements[1][1].get_text(),
+                            self.check_elements[2][1].get_text(),
+                            self.check_elements[3][1].get_active_text(),
+                            str(self.check_elements[4][1].get_active()),
+                            self.check_elements[5][1].get_active_text(),                            
+                            ))
+        
+    def edit_list_item(self, widget, row, col):
+        widget = widget.get_model()
+        print widget[row][0]
