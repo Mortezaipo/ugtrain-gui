@@ -105,15 +105,15 @@ class Static(gtk.Window):
         for i in self.other_data_types:
             self.check_elements[5][2].append_text(i)
         
-        # FIXME: need optimize
         if form_data:
             self.arg_elements[0][2].set_text(form_data[0])
             self.arg_elements[1][2].set_text(form_data[1])
             if form_data[2] != None:
                 self.arg_elements[2][2].set_active(self.data_types.index(form_data[2]))
             if form_data[3] == 'True':
-                self.arg_elements[3][2].activate()
-            #self.arg_elements[4][2].set_mode(form_data[4])
+                self.arg_elements[3][2].set_active(1)
+            if form_data[4] == 'True':
+                self.arg_elements[4][2].set_active(1)
 
 
     def data_win(self, widget=None, form_data=None):
