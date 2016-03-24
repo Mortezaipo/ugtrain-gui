@@ -27,6 +27,7 @@ class General(gtk.Window):
         self.set_size_request(320, 370)
         self.set_position(gtk.WIN_POS_CENTER)
         self.set_border_width(10)
+        self.set_icon_from_file("ugtrain-gui.png")
 
         # Manu for main window
         main_menu = gtk.MenuBar()
