@@ -114,7 +114,18 @@ class Static(gtk.Window):
                 self.arg_elements[3][2].set_active(1)
             if form_data[4] == 'True':
                 self.arg_elements[4][2].set_active(1)
-
+                
+            if form_data[5] == 'True':
+                self.check_elements[0][2].set_active(1);
+            self.check_elements[1][2].set_text(form_data[6])
+            if form_data[7] != None:
+                self.check_elements[2][2].set_active(self.data_types.index(form_data[7]))
+            if form_data[8] != None:
+                self.check_elements[3][2].set_active(self.compare_types.index(form_data[8]))
+            if form_data[9] == 'True':
+                self.check_elements[4][2].set_active(1)
+            if form_data[10] != None:
+                self.check_elements[5][2].set_active(self.other_data_types.index(form_data[10]))
 
     def data_win(self, widget=None, form_data=None):
         """Data window to add/edit list items."""
@@ -139,10 +150,10 @@ class Static(gtk.Window):
         
         if self.edit_mode:
             save_btn = gtk.Button('Update')
-            save_btn.connect("clicked", self.edit_list_item)
+            save_btn.connect("clicked", self.save_list_item)
         else:
             save_btn = gtk.Button('Add')
-            save_btn.connect("clicked", self.add_list_item)
+            save_btn.connect("clicked", self.save_list_item)
         
         if not self.edit_mode:
             self.define_elements()
@@ -176,38 +187,67 @@ class Static(gtk.Window):
         self.edit_mode = None
         widget.do_destroy
         
-    def add_list_item(self, widget):
+    def save_list_item(self, widget):
         if not self.validate_fields():
             return False
         
-        self.list_store.append((
-                            self.arg_elements[0][2].get_text(),
-                            self.arg_elements[1][2].get_text(),
-                            self.arg_elements[2][2].get_active_text(),
-                            str(self.arg_elements[3][2].get_active()),
-                            str(self.arg_elements[4][2].get_active()),
-                            '',
-                            ))
+        # New data
+        if not self.edit_mode: 
+            self.list_store.append((
+                                self.arg_elements[0][2].get_text(),
+                                self.arg_elements[1][2].get_text(),
+                                self.arg_elements[2][2].get_active_text(),
+                                str(self.arg_elements[3][2].get_active()),
+                                str(self.arg_elements[4][2].get_active()),
+                                '',
+                                ))
+            
+            self.list_store.append((
+                                str(self.check_elements[0][2].get_active()),
+                                self.check_elements[1][2].get_text(),
+                                self.check_elements[2][2].get_active_text(),
+                                self.check_elements[3][2].get_active_text(),
+                                str(self.check_elements[4][2].get_active()),
+                                self.check_elements[5][2].get_active_text(),
+                                ))
+            return True
         
-        self.list_store.append((
-                            str(self.check_elements[0][2].get_active()),
-                            self.check_elements[1][2].get_text(),
-                            self.check_elements[2][2].get_active_text(),
-                            self.check_elements[3][2].get_active_text(),
-                            str(self.check_elements[4][2].get_active()),
-                            self.check_elements[5][2].get_active_text(),
-                            ))
+        # Update data
+        if self.edit_mode[0] % 2 == 0:
+            arg_row = self.edit_mode[0]
+            check_row = self.edit_mode[0] + 1
+        else:
+            arg_row = self.edit_mode[0] - 1
+            check_row = self.edit_mode[0]
+        
+        #self.list_store[self.edit_mode[0]][0] = self.arg_elements[0][2].get_text()
+        self.list_store[arg_row][0] = self.arg_elements[0][2].get_text()
+        self.list_store[arg_row][1] = self.arg_elements[1][2].get_text()
+        self.list_store[arg_row][2] = self.arg_elements[2][2].get_active_text()
+        self.list_store[arg_row][3] = self.arg_elements[3][2].get_active()
+        self.list_store[arg_row][4] = self.arg_elements[4][2].get_active()
+
+        self.list_store[check_row][0] = self.check_elements[0][2].get_active()
+        self.list_store[check_row][1] = self.check_elements[1][2].get_text()
+        self.list_store[check_row][2] = self.check_elements[2][2].get_active_text()
+        self.list_store[check_row][3] = self.check_elements[3][2].get_active_text()
+        self.list_store[check_row][4] = self.check_elements[4][2].get_active()
+        self.list_store[check_row][5] = self.check_elements[5][2].get_active_text()
         
     def edit_data_win(self, widget, row, col):
         widget = widget.get_model()
-        #self.arg_elements[0][1].set_text(widget[row][0])
         self.edit_mode = row
-        #print self.arg_elements[0][1].get_text()
-        form_data = (widget[row][0], widget[row][1], widget[row][2], widget[row][3], widget[row][4])
-        self.data_win(form_data=form_data)
+        if row[0] % 2 == 0:
+            arg_row = row[0]
+            check_row = row[0] + 1
+        else:
+            arg_row = row[0] - 1
+            check_row = row[0]
+
+        form_data = [widget[arg_row][0], widget[arg_row][1], widget[arg_row][2], widget[arg_row][3], widget[arg_row][4]]
+        form_data += [widget[check_row][0], widget[check_row][1], widget[check_row][2], widget[check_row][3], widget[check_row][4], widget[check_row][5]]
         
-    def edit_list_item(self, widget):
-        pass
+        self.data_win(form_data=form_data)
     
     def validate_fields(self):
         return True
