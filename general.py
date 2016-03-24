@@ -6,9 +6,7 @@ from static import Static
 
 class General(gtk.Window):
     
-    pointer = None
-    dynamic = None
-    static = None
+    mode = None
     
     sg_elements = {'Process name': gtk.Entry(),
                    'Process call': gtk.Entry(),
@@ -38,6 +36,7 @@ class General(gtk.Window):
         m_file = gtk.MenuItem("File")
         m_new = gtk.MenuItem("New")
         m_open = gtk.MenuItem("Open")
+        m_save = gtk.MenuItem("Save")
         m_exit = gtk.MenuItem("Exit")
         m_setting = gtk.MenuItem("Settings")
         m_static = gtk.MenuItem("Static")
@@ -49,6 +48,7 @@ class General(gtk.Window):
         
         file_menu.append(m_new)
         file_menu.append(m_open)
+        file_menu.append(m_save)
         file_menu.append(m_exit)
         
         setting_menu.append(m_static)
@@ -90,6 +90,7 @@ class General(gtk.Window):
         m_static.connect("activate", self.draw_static_form)
         m_dynamic.connect("activate", self.draw_dynamic_form)
         m_pointer.connect("activate", self.draw_pointer_form)
+        m_save.connect("activate", self.save_config_form)
         self.show_all()
         
     def draw_start_game(self):
@@ -107,13 +108,16 @@ class General(gtk.Window):
             i+=1
             
     def draw_static_form(self, widget):
-        if not self.static:
-            self.static = Static()
+        self.mode = Static()
     
     def draw_dynamic_form(self, widget):
-        if not self.dynamic:
-            self.dynamic = Dynamic()
+        self.mode = Dynamic()
         
     def draw_pointer_form(self, widget):
-        if not self.pointer:
-            self.pointer = Pointer()
+        self.mode = Pointer()
+            
+    def save_config_form(self, widget):
+        if self.mode:
+            print self.mode.config_file_content
+        else:
+            print 'there is no config file! choice your config type.'

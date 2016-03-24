@@ -8,6 +8,9 @@ class Static(gtk.Window):
     # Edit mode for editing list items.
     edit_mode = None
     
+    # Final config data
+    config_file_content = ""
+    
     def __init__(self):
         super(Static, self).__init__()
         
@@ -47,6 +50,7 @@ class Static(gtk.Window):
         
         # Connect element to signals
         add_arg.connect("clicked", self.data_win)
+        save_btn.connect("clicked", self.save_config)
         
         # Create List Store
         scrolled_win = gtk.ScrolledWindow()
@@ -220,7 +224,6 @@ class Static(gtk.Window):
             arg_row = self.edit_mode[0] - 1
             check_row = self.edit_mode[0]
         
-        #self.list_store[self.edit_mode[0]][0] = self.arg_elements[0][2].get_text()
         self.list_store[arg_row][0] = self.arg_elements[0][2].get_text()
         self.list_store[arg_row][1] = self.arg_elements[1][2].get_text()
         self.list_store[arg_row][2] = self.arg_elements[2][2].get_active_text()
@@ -249,6 +252,14 @@ class Static(gtk.Window):
         
         self.data_win(form_data=form_data)
     
+    def save_config(self, widget):
+        self.config_file_content += self.conf_elements[0][1].get_text() + " " + self.conf_elements[1][1].get_text() + " "\
+                                 + self.conf_elements[2][1].get_text() + " " + str(self.conf_elements[3][1].get_active()) + " "\
+                                 + self.conf_elements[4][1].get_text() + " " + self.conf_elements[5][1].get_text() + " "\
+                                 + self.conf_elements[6][1].get_text() + "\n"
+        for record in self.list_store:
+            self.config_file_content += str(record[0]) + " " + str(record[1]) + " " + str(record[2]) + " " + str(record[3]) + " " + str(record[4]) + " " + str(record[5]) + "\n"
+            
     def validate_fields(self):
         return True
         for i in range(3):
