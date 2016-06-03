@@ -17,11 +17,11 @@ Main features that the user interface supports are:
 
 ##Current Limitations
 ####Operating System
-..* Linux Only
+* Linux Only
 ####Packaging
-..* DEB
-..* RPM
-..* YMP
+* DEB
+* RPM
+* YMP
 
 ##How to Contribute
 Please **create issues on Github** to report bugs, send feature requests and so on.
