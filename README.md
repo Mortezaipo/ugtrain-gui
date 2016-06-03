@@ -16,7 +16,6 @@ Main features that user interface supports are:
 * Internationalization.
 
 ##Current Limitations
-
 ####Operating System
 ..*Linux Only
 ####Packaging
