@@ -1,6 +1,6 @@
 #Ugtrain GUI
 Graphical user interface for [UGtrain](https://github.com/ugtrain/ugtrain) project.
----
+
 Developed in C and GTK+.
 
 **Under Construction ....**
