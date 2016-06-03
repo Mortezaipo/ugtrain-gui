@@ -1,10 +1,17 @@
 #Ugtrain GUI
 Graphical user interface for <a href="https://github.com/ugtrain/ugtrain">Ugtrain</a> project.<br>
 <br>
-Developed in Python & GTK.
+Developed in C and GTK+.
 <br>
 Under Construction ....
 
-<h3>Icon:</h3>
-Icon owner is: https://www.iconfinder.com/Ikonografia<br>
-and license is: http://creativecommons.org/licenses/by/3.0/
+Main features that user interface supports are:
+- [x] Static memory settings.
+- [x] Dynamic memory settings.
+- [x] Pointer memory settings.
+- [x] Config file per user.
+- [x] Check new version and update.
+- [x] Fetch samples from urls.
+- [x] Syntax highlighting.
+- [x] Internationalization.
+<br>
