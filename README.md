@@ -31,5 +31,7 @@ then please **create pull requests** in order to request a review and merge you 
 
 ##License
 GNU GENERAL PUBLIC LICENSE Version 3 (GNU GPLv3)
+
 Icon owner: https://www.iconfinder.com/Ikonografia
+
 Icon license: http://creativecommons.org/licenses/by/3.0/
