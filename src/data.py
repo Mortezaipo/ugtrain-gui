@@ -1,5 +1,5 @@
-"""Data management of Ugtrain-gui.
-It works in memory based SQLite3.
+"""Data management of UGTrain-GUI.
+It works with memory based SQLite3.
 """
 
 import sqlite3
