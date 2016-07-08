@@ -5,3 +5,6 @@ table_row_space = 10
 
 auto_update = True
 auto_update_url = "http://"
+
+window_title = "UGTrain - {}"
+window_icon = "ugtrain-gui.svg"
