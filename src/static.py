@@ -7,7 +7,7 @@ class Static(gtk.Window):
     
     # Edit mode for editing list items.
     edit_mode = None
-    
+
     # Final config data
     config_file_content = ""
     
@@ -16,7 +16,7 @@ class Static(gtk.Window):
         
         # Set window settings
         self.set_size_request(1120, 300)
-        self.set_title("UGTrain - Static Form")
+        self.set_title(settings.window_title.format("Static Form"))
         self.set_border_width(settings.window_border)
         
         # Create layouts
@@ -283,3 +283,6 @@ class Static(gtk.Window):
                 d.destroy()
                 return False
         return True
+
+    def destroy(self):
+        pass
