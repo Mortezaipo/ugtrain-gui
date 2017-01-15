@@ -24,7 +24,7 @@ class Window(Gtk.Window):
     """
 
     def __init__(self, title, size, close_btn=True, *btns):
-        # Window header bar settings
+        # Window header bar config
         self.header_bar = Gtk.HeaderBar()
         Gtk.Window.__init__(self, title="UGTrain - {}".format(title))
         self.header_bar.props.title = "UGTrain - {}".format(title)
