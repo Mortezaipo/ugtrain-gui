@@ -7,7 +7,7 @@ try:
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
-except:
+except ImportError:
     show('error', 'Python GTK3.0 library not found.')
     sys.exit(1)
 
