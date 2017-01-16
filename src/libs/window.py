@@ -6,7 +6,7 @@ from .show import show
 try:
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
 except ImportError:
     show('error', 'Python GTK3.0 library not found.')
     sys.exit(1)
@@ -22,7 +22,6 @@ class Window(Gtk.Window):
         *btns: List of all buttons or menus objects which
                 to be shown on the Window header bar.
     """
-
     def __init__(self, title, size, close_btn=True, *btns):
         # Window header bar config
         self.header_bar = Gtk.HeaderBar()
@@ -37,6 +36,15 @@ class Window(Gtk.Window):
         # Window action buttons
         self.header_bar.set_show_close_button(close_btn)
 
+        # Load and set CSS style (Theme)
+        style = Gtk.CssProvider()
+        style.load_from_data(open('css/light.css', 'rb').read())  # FIXME
+        Gtk.StyleContext().add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
         # Add buttons or menus to the header bar based on their positions
         if btns:
             for obj, position in btns:
@@ -45,8 +53,28 @@ class Window(Gtk.Window):
                 elif position == 'right':
                     self.header_bar.pack_end(obj)
 
+        # Add Box in Window
+        self.box = Gtk.Box(spacing=10)
+        self.add(self.box)
+
         # Handle destroy signal on Window
         self.signal('delete_event', Gtk.main_quit)
+
+    def add_item(self, item_obj, position='center'):
+        """Add item inside of the main box.
+
+        Args:
+            item_obj: Gtk item object.
+            position: Item position on Window Box.
+        Returns:
+            None
+        """
+        if position == 'center':
+            self.box.set_center_widget(item_obj)
+        elif position == 'left':
+            self.box.pack_start(item_obj, True, True, 0)
+        elif position == 'right':
+            self.box.pack_end(item_obj, True, True, 0)
 
     def signal(self, event, action):
         """Window Signal handler.
@@ -60,7 +88,7 @@ class Window(Gtk.Window):
         self.connect(event, action)
 
     def render(self):
-        """Render final results.
+        """Render the final results.
 
         Returns:
             None
