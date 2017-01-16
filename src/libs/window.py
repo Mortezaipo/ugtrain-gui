@@ -55,6 +55,7 @@ class Window(Gtk.Window):
 
         # Add Box in Window
         self.box = Gtk.Box(spacing=10)
+        self.box.set_homogeneous(False)
         self.add(self.box)
 
         # Handle destroy signal on Window
