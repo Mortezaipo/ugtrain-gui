@@ -1,22 +1,6 @@
 /* UGTrain Ligh Style Theme */
-
-@define-color big_button_text_color #525E61;
-@define-color big_button_bg_color #F9FAFA;
-@define-color big_button_bg_color_active #E5E5E5;
-@define-color big_button_border_color_active #4CD9B6;
-@define-color big_button_border_color #D7DCDD;
-
 #big_button {
-  color: @big_button_text_color;
   border-radius: 5px;
-  background: @big_button_bg_color;
-  border: 1px solid @big_button_border_color;
   padding: 20px;
   margin: 5px;
-  transition: all 1s;
-}
-
-#big_button:hover {
-  background-color: @big_button_bg_color_active;
-  border: 1px solid @big_button_border_color_active;
 }
