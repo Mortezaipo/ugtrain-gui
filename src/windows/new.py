@@ -9,15 +9,18 @@ def new():
     header_button = (
         (Button(icon='properties').render(), 'right'),
     )
-    new_win = Window("New Project", (255, 280), True, *header_button)
+    new_win = Window("New Project", (400, 280), True, *header_button)
 
     buttons = (
+        (BigButton(title="Sample Content",
+                   description="Some description about it.",
+                   icon="properties").render(), ),
         (BigButton(title="Static Memory",
-                   description="Some description about it.").render(), ),
+                   description="Some description about it.",
+                   icon="cancel").render(), ),
         (BigButton(title="Static Memory",
-                   description="Some description about it.").render(), ),
-        (BigButton(title="Static Memory",
-                   description="Some description about it.").render(), ),
+                   description="Some description about it.",
+                   icon="add").render(), ),
     )
 
     table = Table(*buttons).render()
