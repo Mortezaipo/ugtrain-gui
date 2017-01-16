@@ -47,22 +47,33 @@ class BigButton(Button):
         description: Button description.
         icon: Button icon.
     """
-    def __init__(self, title, description, icon=None):
+    def __init__(self, title, description, icon, width=400):
         self.title = title
         self.description = description
         self.icon = Gtk.Image(stock="gtk-{}".format(icon)) if icon else None
+        self.width = width
 
     def render(self):
         """Render the final results.
 
         Returns:
-            Gtk label object
+            Gtk button object
         """
-        self.button = Gtk.Label()
+        self.hbox = Gtk.HBox(2)
+        self.hbox.set_homogeneous(False)
+
+        self.label = Gtk.Label()
+        self.label.set_justify(Gtk.Justification.LEFT)
+        self.label.set_alignment(Gtk.Align.FILL, 0)
+        self.label.set_markup("<big><b>{}</b></big>\n<span>{}</span>"
+                              .format(self.title, self.description))
+
+        self.hbox.pack_start(self.label, True, True, 0)
+        self.hbox.pack_start(self.icon, False, False, 0)
+
+        self.button = Gtk.Button()
+        self.button.set_property("width-request", self.width)
         self.button.set_name("big_button")
-        self.button.set_justify(Gtk.Justification.LEFT)
-        self.button.set_markup("<big><b>{}</b></big>\n<span>{}</span>"
-                               .format(self.title, self.description))
-        # self.button.set_state_flags(Gtk.StateFlags.INSENSITIVE, True)
-        # self.button.set_line_wrap(True)
+        self.button.add(self.hbox)
+
         return self.button
