@@ -47,11 +47,13 @@ class BigButton(Button):
         description: Button description.
         icon: Button icon.
     """
-    def __init__(self, title, description, icon, width=400):
+    def __init__(self, name, title, description, icon=None, width=400):
+        self.name = name
         self.title = title
         self.description = description
         self.icon = Gtk.Image(stock="gtk-{}".format(icon)) if icon else None
         self.width = width
+        self.hbox_cols = 2 if self.icon else 1
 
     def render(self):
         """Render the final results.
@@ -59,7 +61,7 @@ class BigButton(Button):
         Returns:
             Gtk button object
         """
-        self.hbox = Gtk.HBox(2)
+        self.hbox = Gtk.HBox(self.hbox_cols)
         self.hbox.set_homogeneous(False)
 
         self.label = Gtk.Label()
@@ -69,11 +71,35 @@ class BigButton(Button):
                               .format(self.title, self.description))
 
         self.hbox.pack_start(self.label, True, True, 0)
-        self.hbox.pack_start(self.icon, False, False, 0)
-
+        if self.icon:
+            self.hbox.pack_start(self.icon, False, False, 0)
+        else:
+            self.hbox.pack_start(
+                Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE),
+                False, False, 0)
         self.button = Gtk.Button()
         self.button.set_property("width-request", self.width)
-        self.button.set_name("big_button")
+        self.button.set_name(self.name)
         self.button.add(self.hbox)
 
         return self.button
+
+
+class MenuButton:
+    """Menu Button class."""
+
+    def __init__(self):
+        pass
+
+    def render(self):
+        parent_menu = Gtk.MenuBar()
+
+        main_menu = Gtk.Menu()
+        main_menu_item = Gtk.MenuItem("F")
+        main_menu_item.set_submenu(main_menu)
+
+        e = Gtk.MenuItem("Exit")
+        main_menu.append(e)
+
+        parent_menu.append(main_menu_item)
+        return parent_menu
