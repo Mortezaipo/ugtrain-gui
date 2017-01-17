@@ -30,13 +30,6 @@ class Table:
         for row in self.items:
             for cell in row:
                 self.table.attach(cell, left, top, 500, 10)
-                # self.table.attach(cell,
-                #                   left,
-                #                   self.cols-left,
-                #                   top,
-                #                   self.rows-top,
-                #                   Gtk.AttachOptions.SHRINK |
-                #                   Gtk.AttachOptions.FILL)
                 left += 1
             left = 0
             top += 10
