@@ -1,26 +1,36 @@
 """New Window file."""
 from libs.window import Window
-from libs.button import Button, BigButton
+from libs.button import Button, BigButton, MenuButton
 from libs.table import Table
 
 
 def new():
     """New Window function."""
+    a = MenuButton().render()
+    print(a)
     header_button = (
-        (Button(icon='properties').render(), 'right'),
+        (a, 'right'),
+        # (Button(icon='properties').render(), 'right'),
     )
-    new_win = Window("New Project", (400, 280), True, *header_button)
+    new_win = Window("new_project",
+                     "New Project",
+                     (400, 280),
+                     True,
+                     *header_button)
 
     buttons = (
-        (BigButton(title="Sample Content",
-                   description="Some description about it.",
-                   icon="properties").render(), ),
-        (BigButton(title="Static Memory",
-                   description="Some description about it.",
-                   icon="cancel").render(), ),
-        (BigButton(title="Static Memory",
-                   description="Some description about it.",
-                   icon="add").render(), ),
+        (BigButton(name="dynamic_memory",
+                   title="Dynamic Memory",
+                   description="Some description about it."
+                   ).render(), ),
+        (BigButton(name="static_memory",
+                   title="Static Memory",
+                   description="Some description about it."
+                   ).render(), ),
+        (BigButton(name="pointer_memory",
+                   title="Pointer Memory",
+                   description="Some description about it."
+                   ).render(), ),
     )
 
     table = Table(*buttons).render()
