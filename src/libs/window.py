@@ -22,12 +22,13 @@ class Window(Gtk.Window):
         *btns: List of all buttons or menus objects which
                 to be shown on the Window header bar.
     """
-    def __init__(self, title, size, close_btn=True, *btns):
+    def __init__(self, name, title, size, close_btn=True, *btns):
         # Window header bar config
         self.header_bar = Gtk.HeaderBar()
         Gtk.Window.__init__(self, title="UGTrain - {}".format(title))
         self.header_bar.props.title = "UGTrain - {}".format(title)
         self.set_titlebar(self.header_bar)
+        self.set_name(name)
 
         # Windows body size
         self.set_default_size(*size)
@@ -38,7 +39,7 @@ class Window(Gtk.Window):
 
         # Load and set CSS style (Theme)
         style = Gtk.CssProvider()
-        style.load_from_data(open('css/light.css', 'rb').read())  # FIXME
+        style.load_from_data(open('css/style.css', 'rb').read())  # FIXME
         Gtk.StyleContext().add_provider_for_screen(
             Gdk.Screen.get_default(),
             style,
