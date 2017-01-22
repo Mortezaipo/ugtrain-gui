@@ -1,19 +1,17 @@
 #UGtrain GUI
 Graphical user interface for [UGtrain](https://github.com/ugtrain/ugtrain) project.
 
-Developed in Python and GTK.
+Developed in C and GTK+ 3.0.
 
 **Under Construction ....**
 
-Main features that the user interface supports are:
+Main features that the this user interface supports are:
 * Static memory settings.
 * Dynamic memory settings.
 * Pointer memory settings.
 * Config file per user.
 * Check new version and update.
 * Fetch samples from urls.
-* Syntax highlighting.
-* Internationalization.
 
 ##Current Limitations
 ####Operating System

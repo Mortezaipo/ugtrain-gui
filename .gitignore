@@ -1,5 +1,4 @@
 .*
-*.pyc
-ugtrain-gui
-venv/
-__pycache__
+*.o
+*.out
+*.gch
