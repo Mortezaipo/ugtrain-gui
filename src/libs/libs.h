@@ -16,4 +16,6 @@ General variables and methods list.
 #define RESET "\033[0m"
 #endif
 
-GtkWidget *BigButton(char *title, char *description);
+GtkWidget *BigButton(char *, char *);
+void print(char *, char *);
+void printl(char *, char *);
