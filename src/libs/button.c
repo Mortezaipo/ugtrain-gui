@@ -6,7 +6,7 @@ BigButton(char *title, char *description) {
   GtkWidget* big_btn_box;
   GtkWidget* big_btn_title_lbl;
   GtkWidget* big_btn_description_lbl;
-  char *markup = malloc(sizeof(strlen(title)) + 18);
+  char *markup = malloc(strlen(title) + 18);
   sprintf(markup, "<big><b>%s</b></big>", title);
 
   big_btn = gtk_button_new();
